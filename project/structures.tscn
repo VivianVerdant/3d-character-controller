@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://54gi4d1rs3dt"]
+
+[ext_resource type="PackedScene" uid="uid://dwdek7els5qb7" path="res://level/struct.tscn" id="1_pi1iy"]
+
+[node name="structures" type="Node3D"]
+
+[node name="struct9" parent="." instance=ExtResource("1_pi1iy")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="struct10" parent="." instance=ExtResource("1_pi1iy")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 5, 0)
+
+[node name="struct11" parent="." instance=ExtResource("1_pi1iy")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 10, 0)
+
+[node name="struct12" parent="." instance=ExtResource("1_pi1iy")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 15, 0)
+
+[node name="struct13" parent="." instance=ExtResource("1_pi1iy")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 20, 0)
+
+[node name="struct14" parent="." instance=ExtResource("1_pi1iy")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 25, 0)
+
+[node name="struct15" parent="." instance=ExtResource("1_pi1iy")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 30, 0)
+
+[node name="struct16" parent="." instance=ExtResource("1_pi1iy")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 35, 0)
+
+[node name="struct17" parent="." instance=ExtResource("1_pi1iy")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 35, 0)

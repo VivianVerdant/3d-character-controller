@@ -12,7 +12,7 @@ config_version=5
 
 config/name="M2. Get to Know 3D (Interactive Tours)"
 run/main_scene="res://game.tscn"
-config/features=PackedStringArray("4.4", "Mobile")
+config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://icon.png"
 
 [autoload]
@@ -77,6 +77,11 @@ left_click={
 [layer_names]
 
 3d_physics/layer_2="environment_detail"
+
+[physics]
+
+3d/run_on_separate_thread=true
+3d/physics_engine="Jolt Physics"
 
 [rendering]
 

@@ -8,7 +8,7 @@
 script = ExtResource("1_1il7v")
 
 [node name="Player3DTemplate" parent="." instance=ExtResource("1_w0p8v")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.43638, 0, -7.8513)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.43638, 1, -7.8513)
 
 [node name="Level" parent="." instance=ExtResource("7_2frud")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 31.4)

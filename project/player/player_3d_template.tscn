@@ -1,47 +1,39 @@
-[gd_scene load_steps=12 format=3 uid="uid://b1ot6gn6tms6h"]
+[gd_scene load_steps=14 format=3 uid="uid://b1ot6gn6tms6h"]
 
 [ext_resource type="Script" uid="uid://dd7f27jsno77n" path="res://player/player_3d_template.gd" id="1_dpokc"]
-[ext_resource type="PackedScene" uid="uid://prh35jb6tjtd" path="res://player/sophia_skin/sophia_skin.tscn" id="2_4dj54"]
+[ext_resource type="Script" uid="uid://ctsi1la34tj2w" path="res://player/independant.gd" id="2_6bmsq"]
 [ext_resource type="AudioStream" uid="uid://bhoyegbjust84" path="res://player/sounds/robot_land.wav" id="3_kbqxf"]
 [ext_resource type="AudioStream" uid="uid://b4x0f4pgfifoo" path="res://player/sounds/robot_jump.wav" id="4_1v0dq"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_e8pdu"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_dggrf"]
 radius = 0.4
 
-[sub_resource type="Curve" id="Curve_3f17x"]
-_data = [Vector2(0, 0.742241), 0.0, 0.0, 0, 0, Vector2(0.139952, 0.986755), 0.129787, 0.129787, 0, 0, Vector2(0.631579, 1), 0.0, 0.0, 0, 0, Vector2(0.785885, 0.873668), -1.98736, -1.98736, 0, 0, Vector2(1, 0.0148119), -5.26067, 0.0, 0, 0]
-point_count = 5
+[sub_resource type="Gradient" id="Gradient_6bmsq"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.5)
+colors = PackedColorArray(0.0142752, 0.0142752, 0.0142752, 1, 1, 1, 1, 1)
+metadata/_snap_enabled = true
 
-[sub_resource type="CurveTexture" id="CurveTexture_8asvs"]
-width = 32
-curve = SubResource("Curve_3f17x")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ivo6u"]
+gradient = SubResource("Gradient_6bmsq")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tqdcj"]
-lifetime_randomness = 0.33
-emission_shape = 1
-emission_sphere_radius = 0.1
-direction = Vector3(0, 1, 0)
-spread = 90.0
-initial_velocity_min = 0.1
-initial_velocity_max = 0.35
-gravity = Vector3(0, 0.5, 0)
-tangential_accel_min = -2.23517e-06
-tangential_accel_max = 0.199998
-scale_min = 0.8
-scale_max = 1.2
-scale_curve = SubResource("CurveTexture_8asvs")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hlhab"]
+albedo_texture = SubResource("GradientTexture1D_ivo6u")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kpdwg"]
-shading_mode = 2
-vertex_color_use_as_albedo = true
-albedo_color = Color(0.536729, 0.511356, 0.854902, 1)
+[sub_resource type="Gradient" id="Gradient_lj7r5"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.5)
+metadata/_snap_enabled = true
 
-[sub_resource type="SphereMesh" id="SphereMesh_vpbss"]
-material = SubResource("StandardMaterial3D_kpdwg")
-radius = 0.15
-height = 0.3
-radial_segments = 8
-rings = 8
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ywtjr"]
+gradient = SubResource("Gradient_lj7r5")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a0g01"]
+albedo_texture = SubResource("GradientTexture1D_ywtjr")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_6bmsq"]
+radius = 0.4
+height = 1.6
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_h1hkf"]
 length = 0.5
@@ -56,23 +48,48 @@ script = ExtResource("1_dpokc")
 acceleration = 30.0
 
 [node name="CharacterCollisionShape" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_e8pdu")
-debug_color = Color(0, 0.6, 0.7, 0.42)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+shape = SubResource("SphereShape3D_dggrf")
 
-[node name="SophiaSkin" parent="." instance=ExtResource("2_4dj54")]
-unique_name_in_owner = true
+[node name="marker" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
 
-[node name="DustParticles" type="GPUParticles3D" parent="SophiaSkin"]
+[node name="CSGCylinder3D" type="CSGBox3D" parent="marker"]
+transform = Transform3D(2.96, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.25)
+visible = false
+size = Vector3(0.1, 0.5, 0.05)
+material = SubResource("StandardMaterial3D_hlhab")
+
+[node name="IndependantTarget" type="Marker3D" parent="marker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+
+[node name="Node" type="Node" parent="."]
+
+[node name="Independant" type="Marker3D" parent="Node"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, -0.5)
+script = ExtResource("2_6bmsq")
+
+[node name="FrontTarget" type="CSGSphere3D" parent="Node/Independant"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.136607, -0.190934)
-cast_shadow = 0
-gi_mode = 0
-amount = 10
-lifetime = 0.7
-explosiveness = 0.05
-process_material = SubResource("ParticleProcessMaterial_tqdcj")
-draw_pass_1 = SubResource("SphereMesh_vpbss")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
+visible = false
+radius = 0.1
+
+[node name="RearTarget" type="CSGSphere3D" parent="Node/Independant"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+visible = false
+radius = 0.1
+
+[node name="CSGCylinder3D2" type="CSGBox3D" parent="Node/Independant"]
+transform = Transform3D(2.96, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.25)
+visible = false
+size = Vector3(0.1, 0.5, 0.05)
+material = SubResource("StandardMaterial3D_a0g01")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="Node/Independant"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_6bmsq")
 
 [node name="LandingSound" type="AudioStreamPlayer3D" parent="."]
 unique_name_in_owner = true

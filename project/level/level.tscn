@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cnedxfn2pxh2t"]
+[gd_scene load_steps=20 format=3 uid="uid://cnedxfn2pxh2t"]
 
 [ext_resource type="Shader" uid="uid://cdlt3ujrpad32" path="res://level/sky_with_stars.tres" id="1_hwp5q"]
 [ext_resource type="PackedScene" uid="uid://7s1esfbldf1" path="res://level/cactus/cactus_small_4.tscn" id="1_oaaa3"]
@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://c5hogid8crh2g" path="res://level/cactus/cactus_small_3.tscn" id="5_ka65c"]
 [ext_resource type="PackedScene" uid="uid://cip1awte2184j" path="res://level/cactus/cactus_small_2.tscn" id="6_ona4a"]
 [ext_resource type="Material" uid="uid://da188d7yrcfr8" path="res://level/platforms.tres" id="7_njuj4"]
+[ext_resource type="PackedScene" uid="uid://54gi4d1rs3dt" path="res://structures.tscn" id="9_cw150"]
+[ext_resource type="Material" uid="uid://bcxdman635hls" path="res://level/struct_material.tres" id="10_xii2b"]
 
 [sub_resource type="Curve" id="Curve_k4wis"]
 _data = [Vector2(0.479821, 0), 0.0, 0.0480497, 0, 0, Vector2(0.520179, 1), 12.9529, 0.0, 0, 0]
@@ -35,8 +37,8 @@ noise = SubResource("FastNoiseLite_jnnrx")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g8ud2"]
 shader = ExtResource("1_hwp5q")
-shader_parameter/top_color = Color(0.324, 0.22, 1, 1)
-shader_parameter/bottom_color = Color(0.39, 0.471333, 1, 1)
+shader_parameter/top_color = Color(0.482353, 0.705882, 0.811765, 1)
+shader_parameter/bottom_color = Color(0.7695, 0.797175, 0.81, 1)
 shader_parameter/gradient_curve = SubResource("CurveTexture_moxc7")
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_83fre")
 shader_parameter/moon_direction = Vector3(-1.095, 0.68, 1)
@@ -47,16 +49,18 @@ sky_material = SubResource("ShaderMaterial_g8ud2")
 
 [sub_resource type="Environment" id="Environment_5pwhg"]
 background_mode = 2
+background_color = Color(0.482353, 0.705882, 0.811765, 1)
 sky = SubResource("Sky_0h0bb")
-ambient_light_source = 3
-ambient_light_color = Color(0.74902, 0.742654, 0.615273, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.482353, 0.705882, 0.811765, 1)
 ambient_light_sky_contribution = 0.0
+ambient_light_energy = 0.0
 tonemap_mode = 2
-tonemap_exposure = 1.05
-tonemap_white = 0.95
 ssao_enabled = true
-ssao_radius = 0.1
-sdfgi_use_occlusion = true
+ssao_intensity = 8.22
+ssao_sharpness = 0.29
+sdfgi_enabled = true
+glow_enabled = true
 glow_normalized = true
 glow_intensity = 4.98
 glow_strength = 0.26
@@ -66,26 +70,41 @@ glow_hdr_threshold = 0.26
 glow_hdr_scale = 0.0
 glow_hdr_luminance_cap = 18.75
 glow_map_strength = 1.0
-fog_light_color = Color(0.843137, 0.737255, 0.329412, 1)
-fog_density = 0.0
-fog_aerial_perspective = 1.0
-fog_sky_affect = 0.0
-fog_height_density = 0.1
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.482353, 0.705882, 0.811765, 1)
+fog_density = 1.0
+fog_height_density = -0.02
+fog_depth_curve = 1.68179
+fog_depth_begin = 0.0
+fog_depth_end = 200.0
 volumetric_fog_density = 0.01
 volumetric_fog_albedo = Color(0.843137, 0.737255, 0.329412, 1)
 volumetric_fog_emission = Color(0.843137, 0.737255, 0.329412, 1)
+volumetric_fog_anisotropy = -0.73
+volumetric_fog_length = 1.0
+adjustment_enabled = true
+adjustment_brightness = 1.1
+adjustment_contrast = 0.9
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cw150"]
+albedo_color = Color(0.34, 0.26571, 0.1462, 1)
 
 [node name="Level" type="Node3D"]
+
+[node name="FogVolume" type="FogVolume" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.3533, 32.7667, -18.618)
+size = Vector3(200, 84.3716, 200)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_5pwhg")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.327016, 0.941731, -0.0787648, 0.688764, 0.294578, 0.662441, 0.647044, 0.162378, -0.744962, -47.2295, 26.8832, -28.0205)
-light_energy = 0.53
+transform = Transform3D(-0.326212, 0.847762, -0.418193, 0.0525647, 0.457977, 0.887409, 0.943834, 0.267501, -0.19396, -47.2295, 26.8832, -28.0205)
+light_color = Color(2, 1.8, 1.8, 1)
+light_energy = 0.25
 shadow_enabled = true
-directional_shadow_fade_start = 0.9
-directional_shadow_max_distance = 150.0
+directional_shadow_mode = 0
 
 [node name="CSGPolygon3D8" type="CSGPolygon3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -48.25, 8, -22)
@@ -227,3 +246,126 @@ transform = Transform3D(-2.99633, 0.231602, -1.56352, 0.381736, 3.35793, -0.2341
 
 [node name="Cactus_Tall_3" parent="EnvironmentDetail" instance=ExtResource("3_b7ara")]
 transform = Transform3D(-0.363066, -0.101082, 3.01856, -0.727051, 2.95381, 0.0114629, -2.93144, -0.720079, -0.376708, -16.8351, 6.30984, -22.6841)
+
+[node name="structures" parent="." instance=ExtResource("9_cw150")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, -40)
+
+[node name="structures2" parent="." instance=ExtResource("9_cw150")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -25, 15, -40)
+
+[node name="structures3" parent="." instance=ExtResource("9_cw150")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -25, 20, -40)
+
+[node name="CSGBox3D29" type="CSGBox3D" parent="structures3"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.125, 20.2467, -2.5)
+material_override = SubResource("StandardMaterial3D_cw150")
+use_collision = true
+size = Vector3(40, 0.25, 4.9)
+
+[node name="CSGBox3D31" type="CSGBox3D" parent="structures3"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -4.87465, 20.2467, -2.5)
+material_override = SubResource("StandardMaterial3D_cw150")
+use_collision = true
+size = Vector3(40, 0.25, 4.9)
+
+[node name="CSGBox3D32" type="CSGBox3D" parent="structures3"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -9.84282, 20.2467, -2.5)
+material_override = SubResource("StandardMaterial3D_cw150")
+use_collision = true
+size = Vector3(40, 0.25, 4.9)
+
+[node name="CSGBox3D14" type="CSGBox3D" parent="structures3"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -14.5, 5, 0)
+material_override = ExtResource("10_xii2b")
+use_collision = true
+size = Vector3(0.3, 30, 0.3)
+
+[node name="CSGBox3D15" type="CSGBox3D" parent="structures3"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -14.5, 10, 0)
+material_override = ExtResource("10_xii2b")
+use_collision = true
+size = Vector3(0.3, 30, 0.3)
+
+[node name="CSGBox3D16" type="CSGBox3D" parent="structures3"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -14.5, 15, 0)
+material_override = ExtResource("10_xii2b")
+use_collision = true
+size = Vector3(0.3, 30, 0.3)
+
+[node name="CSGBox3D17" type="CSGBox3D" parent="structures3"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -14.5, 20, 0)
+material_override = ExtResource("10_xii2b")
+use_collision = true
+size = Vector3(0.3, 30, 0.3)
+
+[node name="CSGBox3D18" type="CSGBox3D" parent="structures3"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -14.5, 25, 0)
+material_override = ExtResource("10_xii2b")
+use_collision = true
+size = Vector3(0.3, 30, 0.3)
+
+[node name="CSGBox3D19" type="CSGBox3D" parent="structures3"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -14.5, 30, 0)
+material_override = ExtResource("10_xii2b")
+use_collision = true
+size = Vector3(0.3, 30, 0.3)
+
+[node name="CSGBox3D20" type="CSGBox3D" parent="structures3"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -14.5, 35, 0)
+material_override = ExtResource("10_xii2b")
+use_collision = true
+size = Vector3(0.3, 30, 0.3)
+
+[node name="CSGBox3D21" type="CSGBox3D" parent="structures3"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -14.5, 40, 0)
+material_override = ExtResource("10_xii2b")
+use_collision = true
+size = Vector3(0.3, 30, 0.3)
+
+[node name="CSGBox3D22" type="CSGBox3D" parent="structures3"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -14.5, 5, -5)
+material_override = ExtResource("10_xii2b")
+use_collision = true
+size = Vector3(0.3, 30, 0.3)
+
+[node name="CSGBox3D23" type="CSGBox3D" parent="structures3"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -14.5, 10, -5)
+material_override = ExtResource("10_xii2b")
+use_collision = true
+size = Vector3(0.3, 30, 0.3)
+
+[node name="CSGBox3D24" type="CSGBox3D" parent="structures3"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -14.5, 15, -5)
+material_override = ExtResource("10_xii2b")
+use_collision = true
+size = Vector3(0.3, 30, 0.3)
+
+[node name="CSGBox3D25" type="CSGBox3D" parent="structures3"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -14.5, 20, -5)
+material_override = ExtResource("10_xii2b")
+use_collision = true
+size = Vector3(0.3, 30, 0.3)
+
+[node name="CSGBox3D26" type="CSGBox3D" parent="structures3"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -14.5, 25, -5)
+material_override = ExtResource("10_xii2b")
+use_collision = true
+size = Vector3(0.3, 30, 0.3)
+
+[node name="CSGBox3D27" type="CSGBox3D" parent="structures3"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -14.5, 30, -5)
+material_override = ExtResource("10_xii2b")
+use_collision = true
+size = Vector3(0.3, 30, 0.3)
+
+[node name="CSGBox3D28" type="CSGBox3D" parent="structures3"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -14.5, 35, -5)
+material_override = ExtResource("10_xii2b")
+use_collision = true
+size = Vector3(0.3, 30, 0.3)
+
+[node name="CSGBox3D30" type="CSGBox3D" parent="structures3"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -14.5, 40, -5)
+material_override = ExtResource("10_xii2b")
+use_collision = true
+size = Vector3(0.3, 30, 0.3)
